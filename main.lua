@@ -7,4 +7,5 @@ end
 
 
 function love.draw()
+--comment to explain
 end
