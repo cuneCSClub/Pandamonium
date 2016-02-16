@@ -1,0 +1,5 @@
+This is a placeholder file; GitHub doesn't recognize 
+new folders until you put something in them.
+
+We could also put a list of files needed here and a
+description of the existing ones.
