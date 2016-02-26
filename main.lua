@@ -24,11 +24,33 @@ function love.load()
 					speed = 250,                                  --vector magnitude (movement speed)
 					color = {r=255,g=255,b=255}}                  --color of trampoline
 
+					
+	timer = 0
+	objects = {}
+	j = 1
+	for i = 1, 2000 do
+		objects[i] = {}
+		objects[i].x = 0
+		objects[i].y = 0 - (trampoline.width / 3)
+	end
+	objects[1].x = math.random(1, love.graphics.getWidth() - (trampoline.width / 3))
+	
 end
 
 
 function love.update(dt)
 
+	timer = timer + dt
+	if timer > math.random(3, 20) then
+		j = j + 1
+		random_x_position = math.random(1, love.graphics.getWidth() - (trampoline.width / 3))
+		objects[j].x = random_x_position
+		timer = 0
+	end
+	
+	for i = 1, j do
+		objects[i].y = objects[i].y + 1
+	end
 	--Set controls for trampoline
 	if love.keyboard.isDown('a', 'left') then
 		if trampoline.x > 0 then --set left side of screen as boundary
@@ -49,6 +71,11 @@ end
 
 
 function love.draw()
+
+	for i = 1, j do
+		love.graphics.rectangle("fill", objects[i].x, objects[i].y, 20, 20)
+	end
+	
 	--Draw trampoline
 	love.graphics.setColor(trampoline.color.r, trampoline.color.g, trampoline.color.b)
 	love.graphics.rectangle("fill", trampoline.x, trampoline.y, trampoline.width, trampoline.height)
