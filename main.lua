@@ -54,7 +54,12 @@ function love.update(dt)
 		end
 	end
 
-	if coll.collides(square, tramp) then
+	if love.mouse.isDown('l') then
+		square.x = love.mouse.getX()
+		square.y = love.mouse.getY()
+	end
+
+	if coll.collides(square, trampoline) then
 		square.color = square.colortouch
 	else square.color = square.colornottouch end
 
