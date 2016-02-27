@@ -1,3 +1,5 @@
+coll = require 'collisions'
+
 --Screen Configuration
 function love.conf(t)
 	t.title = "Pandamonium" --Title in the window
@@ -24,6 +26,16 @@ function love.load()
 					speed = 250,                                  --vector magnitude (movement speed)
 					color = {r=255,g=255,b=255}}                  --color of trampoline
 
+	square = {
+		x = love.graphics.getWidth() - 100,
+		y = love.graphics.getHeight() - 2*tramp_h,
+		width=50,
+		height=50,
+		color = {r=128,g=255,b=128},
+		colornottouch = {r=128,g=255,b=128},
+		colortouch = {r=128,g=128,b=128},
+	}
+
 end
 
 
@@ -40,6 +52,10 @@ function love.update(dt)
 		end
 	end
 
+	if coll.collides(square, tramp) then
+		square.color = square.colortouch
+	else square.color = square.colornottouch end
+
 	--Quit game when escape key is pressed
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
@@ -52,4 +68,5 @@ function love.draw()
 	--Draw trampoline
 	love.graphics.setColor(trampoline.color.r, trampoline.color.g, trampoline.color.b)
 	love.graphics.rectangle("fill", trampoline.x, trampoline.y, trampoline.width, trampoline.height)
+	love.graphics.rectangle("fill", square.x, square.y, square.width, square.height)
 end
