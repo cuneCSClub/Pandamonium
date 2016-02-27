@@ -17,14 +17,16 @@ function love.load()
 	--Initialize trampoline object
 	tramp_w = 100
 	tramp_h = 20
-	trampoline =   {x = (love.graphics.getWidth())/2 - tramp_w/2, --x position of top left corner
-					y = love.graphics.getHeight() - tramp_h,      --y postition of top left corner
-					width = tramp_w,                              --width of trampoline
-					height = tramp_h,                             --height of trampoline
-					u = 1,                                        --u vector (x axis)
-					v = 0,                                        --v vector (y axis)
-					speed = 250,                                  --vector magnitude (movement speed)
-					color = {r=255,g=255,b=255}}                  --color of trampoline
+	trampoline =   {
+		x = (love.graphics.getWidth())/2 - tramp_w/2, --x position of top left corner
+		y = love.graphics.getHeight() - tramp_h,      --y postition of top left corner
+		width = tramp_w,                              --width of trampoline
+		height = tramp_h,                             --height of trampoline
+		u = 1,                                        --u vector (x axis)
+		v = 0,                                        --v vector (y axis)
+		speed = 250,                                  --vector magnitude (movement speed)
+		color = {r=255,g=255,b=255},                  --color of trampoline
+	}
 
 	square = {
 		x = love.graphics.getWidth() - 100,
@@ -63,10 +65,13 @@ function love.update(dt)
 
 end
 
+local function drawRect(obj)
+	love.graphics.setColor(obj.color.r, obj.color.g, obj.color.b)
+	love.graphics.rectangle("fill", obj.x, obj.y, obj.width, obj.height)
+end	
 
 function love.draw()
 	--Draw trampoline
-	love.graphics.setColor(trampoline.color.r, trampoline.color.g, trampoline.color.b)
-	love.graphics.rectangle("fill", trampoline.x, trampoline.y, trampoline.width, trampoline.height)
-	love.graphics.rectangle("fill", square.x, square.y, square.width, square.height)
+	drawRect(trampoline)
+	drawRect(square)
 end
