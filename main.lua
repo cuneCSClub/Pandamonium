@@ -43,6 +43,7 @@ function love.load()
  animals = {}
  i = 1
  for i = 1, 2000 do
+	animals[i] = {}
 	 animals[i].x = 0
  end
  timer = 0
