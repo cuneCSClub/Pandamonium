@@ -95,14 +95,6 @@ function love.update(dt)
 		end
 	end
 
-	if love.keyboard.isDown("p") then	--and not love.keyboard.hasKeyRepeat() then
-		if pause == false then
-			pause = true
-		else
-			pause = false
-		end
-	end
-
 	if love.mouse.isDown(0) then
 		square.x = love.mouse.getX()
 		square.y = love.mouse.getY()
@@ -115,6 +107,12 @@ function love.update(dt)
 	--Quit game when escape key is pressed
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
+	end
+end
+
+function love.keypressed(key, _, rep)
+	if key == 'p' and not rep then
+		pause = not pause
 	end
 end
 
