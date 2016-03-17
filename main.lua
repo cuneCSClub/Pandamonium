@@ -93,7 +93,7 @@ function love.update(dt)
 		end
 	end
 
-	if love.mouse.isDown(0) then
+	if love.mouse.isDown(1) then
 		square.x = love.mouse.getX()
 		square.y = love.mouse.getY()
 	end
