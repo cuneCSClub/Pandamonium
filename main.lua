@@ -126,6 +126,8 @@ function love.draw()
 			love.graphics.rectangle("fill",
 				objects[i].x, objects[i].y, 20, 20)
 		end
+	else
+		love.graphics.print('PAUSED', 50, 50)
 	end
 
 	--Draw trampoline
