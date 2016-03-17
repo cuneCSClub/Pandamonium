@@ -7,6 +7,7 @@ function love.conf(t)
 
 	t.window.width = 480	--screen width
 	t.window.height = 700	--screen height
+	t.window.vsync = true	--Destroy the evil screen tearing!
 
 	-- For Windows debugging
 	t.console = true
@@ -48,9 +49,6 @@ function love.load()
 		animals[i] = {}
 		animals[i].x = 0
 	end
-	timer = 0
-
-	-- vsync goes here
 
 	timer = 0
 	objects = {}
