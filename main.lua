@@ -24,13 +24,13 @@ function love.load()
 
 	trampoline = {
 		x = (love.graphics.getWidth())/2 - tramp_w/2,	--x position of top left corner
-		y = love.graphics.getHeight() - tramp_h,	--y postition of top left corner
-		width = tramp_w,				--width of trampoline
-		height = tramp_h,				--height of trampoline
-		u = 1,						--u vector (x axis)
-		v = 0,						--v vector (y axis)
-		speed = 250,					--vector magnitude (movement speed)
-		color = {r=255,g=255,b=255},			--color of trampoline
+		y = love.graphics.getHeight() - tramp_h,		--y postition of top left corner
+		width = tramp_w,								--width of trampoline
+		height = tramp_h,								--height of trampoline
+		u = 1,											--u vector (x axis)
+		v = 0,											--v vector (y axis)
+		speed = 250,									--vector magnitude (movement speed)
+		color = {r=255,g=255,b=255},					--color of trampoline
 	}
 
 	square = {
@@ -86,7 +86,8 @@ function love.update(dt)
 					(trampoline.u * trampoline.speed * dt)
 			end
 		elseif love.keyboard.isDown('right', 'd') then
-			if trampoline.x < (love.graphics.getWidth() - trampoline.width) then --set right side of screen as boundary
+			if trampoline.x <
+				(love.graphics.getWidth() - trampoline.width) then --set right side of screen as boundary
 				trampoline.x = trampoline.x +
 					(trampoline.u * trampoline.speed * dt)
 			end
