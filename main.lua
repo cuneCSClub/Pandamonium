@@ -43,11 +43,54 @@ function love.load()
 		colortouch = {r=128,g=128,b=128},
 	}
 
+	-- traits of different animals
+	kitten = {
+		speed = 3,
+		bounce = 3,
+		width = 30,
+		height = 30
+	}
+
+	bunny = {
+		speed = 3,
+		bounce = 6,
+		width = 30,
+		height = 30
+	}
+
+	chick = {
+		speed = 1,
+		bounce = 1,
+		width = 20,
+		height = 20
+	}
+
+	spider = {
+		speed = 1,
+		bounce = 1,
+		width = 20,
+		height = 20
+	}
+
+	snake = {
+		speed = 3,
+		bounce = 3,
+		width = 30,
+		height = 30
+	}
+
+	elephant = {
+		speed = 3,
+		bounce = 0,
+		width = 100,
+		height = 75
+	}
+
 	-- table that contain animal data
 	animals = {}
 	number_of_animals = 0
 	love.spawn()
-	
+
 end
 
 function love.spawn()
@@ -56,31 +99,31 @@ function love.spawn()
 	animals[number_of_animals] = {}
     animals[number_of_animals].x = math.random(1, love.graphics.getWidth() - (trampoline.width/3))
 	animals[number_of_animals].y = 0
-	
+
 	animals[number_of_animals].animal_id = math.random(1,6)
-	
+
 	-- 1 = chick
-	-- 2 = cat
+	-- 2 = kitten
 	-- 3 = bunny
-	-- 4 = 
-	-- 5 = 
-	-- 6 = 
-	
+	-- 4 = spider
+	-- 5 = snake
+	-- 6 = elephant
+
 	-- Change their speed depending on what animal they are
-	if animals[number_of_animals].animal_id == 1 then
-	    animals[number_of_animals].speed = 3
-	elseif animals[number_of_animals].animal_id == 2 then
-	    animals[number_of_animals].speed = 5
-	elseif animals[number_of_animals].animal_id == 3 then
-	    animals[number_of_animals].speed = 7
-	elseif animals[number_of_animals].animal_id == 4 then
-	    animals[number_of_animals].speed = 3
-	elseif animals[number_of_animals].animal_id == 5 then
-	    animals[number_of_animals].speed = 5
-	else
-	    animals[number_of_animals].speed = 7
+	if animals[number_of_animals].animal_id == 1 then -- chick
+	    animals[number_of_animals].speed = elephant.speed
+	elseif animals[number_of_animals].animal_id == 2 then -- kitten
+	    animals[number_of_animals].speed = kitten.speed
+	elseif animals[number_of_animals].animal_id == 3 then -- bunny
+	    animals[number_of_animals].speed = bunny.speed
+	elseif animals[number_of_animals].animal_id == 4 then -- spider
+	    animals[number_of_animals].speed = spider.speed
+	elseif animals[number_of_animals].animal_id == 5 then -- snake
+	    animals[number_of_animals].speed = snake.speed
+	else -- ELEPHANT
+	    animals[number_of_animals].speed = elephant.speed
 	end
-	
+
 	timer = 0
 
 end
