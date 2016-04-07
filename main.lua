@@ -45,67 +45,43 @@ function love.load()
 
 	-- table that contain animal data
 	animals = {}
-	for i = 1, 2000 do
-		animals[i] = {}
-		animals[i].x = 0
-	end
+	number_of_animals = 0
+	love.spawn()
+	
+end
 
+function love.spawn()
+
+	number_of_animals = number_of_animals + 1
+	animals[number_of_animals] = {}
+    animals[number_of_animals].x = math.random(1, love.graphics.getWidth() - (trampoline.width/3))
+	animals[number_of_animals].y = 0
+	
+	animals[number_of_animals].animal_id = math.random(1,6)
+	
+	-- 1 = chick
+	-- 2 = cat
+	-- 3 = bunny
+	-- 4 = 
+	-- 5 = 
+	-- 6 = 
+	
+	-- Change their speed depending on what animal they are
+	if animals[number_of_animals].animal_id == 1 then
+	    animals[number_of_animals].speed = 3
+	elseif animals[number_of_animals].animal_id == 2 then
+	    animals[number_of_animals].speed = 5
+	elseif animals[number_of_animals].animal_id == 3 then
+	    animals[number_of_animals].speed = 7
+	elseif animals[number_of_animals].animal_id == 4 then
+	    animals[number_of_animals].speed = 3
+	elseif animals[number_of_animals].animal_id == 5 then
+	    animals[number_of_animals].speed = 5
+	else
+	    animals[number_of_animals].speed = 7
+	end
+	
 	timer = 0
-	objects = {}
-	j = 1
-	for i = 1, 2000 do
-		objects[i] = {}
-		objects[i].x = 0
-		objects[i].y = 0 - (trampoline.width / 3)
-	end
-	objects[1].x = math.random(1,
-		love.graphics.getWidth() - (trampoline.width / 3))
-
-
-  -- traits of different animals
-  kitten = {
-		speed = 3,
-		bounce = 3,
-		width = 30,
-		height = 30
-	}
-
-	bunny = {
-		speed = 3,
-		bounce = 6
-		width = 30,
-		height = 30
-	}
-
-	chick = {
-		speed = 1,
-		bounce = 1,
-		width = 20,
-		height = 20
-	}
-
-	spider = {
-		speed = 1,
-		bounce = 1
-		width = 20,
-		height = 20
-	}
-
-	snake = {
-		speed = 3,
-		bounce = 3
-		width = 30,
-		height = 30
-	}
-
-	elephant = {
-		speed = 3,
-		bounce = 0
-		width = 100,
-		height = 75
-	}
-
-
 
 end
 
@@ -114,16 +90,11 @@ function love.update(dt)
 	if pause == false then	--checks to see if the game has been paused
 		timer = timer + dt
 		if timer > math.random(3, 20) then
-			j = j + 1
-			random_x_position = math.random(1,
-				love.graphics.getWidth() -
-				(trampoline.width / 3))
-			objects[j].x = random_x_position
-			timer = 0
+			love.spawn()
 		end
 
-		for i = 1, j do
-			objects[i].y = objects[i].y + 1
+		for i = 1, number_of_animals do
+			animals[i].y = animals[i].y + animals[i].speed
 		end
 
 		--Set controls for trampoline
@@ -167,13 +138,12 @@ local function drawRect(obj)
 	love.graphics.rectangle("fill", obj.x, obj.y, obj.width, obj.height)
 end
 
-
 function love.draw()
 
 	if pause == false then	--when game is paused, the animals are invisible
-		for i = 1, j do
+		for i = 1, number_of_animals do
 			love.graphics.rectangle("fill",
-				objects[i].x, objects[i].y, 20, 20)
+				animals[i].x, animals[i].y, 20, 20)
 		end
 	else
 		love.graphics.print('PAUSED', 50, 50)
