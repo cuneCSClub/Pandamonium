@@ -109,19 +109,37 @@ function love.spawn()
 	-- 5 = snake
 	-- 6 = elephant
 
-	-- Change their speed depending on what animal they are
+	-- Change their attributes depending on what animal they are
 	if animals[number_of_animals].animal_id == 1 then -- chick
-	    animals[number_of_animals].speed = elephant.speed
+	    animals[number_of_animals].speed = chick.speed
+			animals[number_of_animals].bounce = chick.bounce
+			animals[number_of_animals].width = chick.width
+			animals[number_of_animals].height = chick.height
 	elseif animals[number_of_animals].animal_id == 2 then -- kitten
-	    animals[number_of_animals].speed = kitten.speed
+			animals[number_of_animals].speed = kitten.speed
+			animals[number_of_animals].bounce = kitten.bounce
+			animals[number_of_animals].width = kitten.width
+			animals[number_of_animals].height = kitten.height
 	elseif animals[number_of_animals].animal_id == 3 then -- bunny
 	    animals[number_of_animals].speed = bunny.speed
+			animals[number_of_animals].bounce = bunny.bounce
+			animals[number_of_animals].width = bunny.width
+			animals[number_of_animals].height = bunny.height
 	elseif animals[number_of_animals].animal_id == 4 then -- spider
 	    animals[number_of_animals].speed = spider.speed
+			animals[number_of_animals].bounce = spider.bounce
+			animals[number_of_animals].width = spider.width
+			animals[number_of_animals].height = spider.height
 	elseif animals[number_of_animals].animal_id == 5 then -- snake
 	    animals[number_of_animals].speed = snake.speed
+			animals[number_of_animals].bounce = snake.bounce
+			animals[number_of_animals].width = snake.width
+			animals[number_of_animals].height = snake.height
 	else -- ELEPHANT
 	    animals[number_of_animals].speed = elephant.speed
+			animals[number_of_animals].bounce = elephant.bounce
+			animals[number_of_animals].width = elephant.width
+			animals[number_of_animals].height = elephant.height
 	end
 
 	timer = 0
@@ -186,7 +204,7 @@ function love.draw()
 	if pause == false then	--when game is paused, the animals are invisible
 		for i = 1, number_of_animals do
 			love.graphics.rectangle("fill",
-				animals[i].x, animals[i].y, 20, 20)
+				animals[i].x, animals[i].y, animals[i].width, animals[i].height)
 		end
 	else
 		love.graphics.print('PAUSED', 50, 50)
