@@ -60,6 +60,53 @@ function love.load()
 	end
 	objects[1].x = math.random(1,
 		love.graphics.getWidth() - (trampoline.width / 3))
+
+
+  -- traits of different animals
+  kitten = {
+		speed = 3,
+		bounce = 3,
+		width = 30,
+		height = 30
+	}
+
+	bunny = {
+		speed = 3,
+		bounce = 6
+		width = 30,
+		height = 30
+	}
+
+	chick = {
+		speed = 1,
+		bounce = 1,
+		width = 20,
+		height = 20
+	}
+
+	spider = {
+		speed = 1,
+		bounce = 1
+		width = 20,
+		height = 20
+	}
+
+	snake = {
+		speed = 3,
+		bounce = 3
+		width = 30,
+		height = 30
+	}
+
+	elephant = {
+		speed = 3,
+		bounce = 0
+		width = 100,
+		height = 75
+	}
+
+
+
 end
 
 
@@ -119,6 +166,7 @@ local function drawRect(obj)
 	love.graphics.setColor(obj.color.r, obj.color.g, obj.color.b)
 	love.graphics.rectangle("fill", obj.x, obj.y, obj.width, obj.height)
 end
+
 
 function love.draw()
 
