@@ -40,8 +40,58 @@ function love.load()
 		height=50,
 		color = {r=128,g=255,b=128},
 		colornottouch = {r=128,g=255,b=128},
-		colortouch = {r=128,g=128,b=128},
+		colortouch = {r=128,g=128,b=128}
 	}
+	
+	button = {
+		x = love.graphics.getWidth() - 50,
+		y = 0,
+		width=50,
+		height=50,
+		color = {r=255,g=0,b=0}
+	}
+	
+	pauseScreen = {
+		width = 500,
+		height = 400,
+		x = 0,
+		y = 0,
+		color = {r=0, g=46, b=184}
+	}
+	pauseScreen.x = love.graphics.getWidth() / 2 - pauseScreen.width / 2
+	pauseScreen.y = love.graphics.getHeight() / 2 - pauseScreen.height / 2
+	
+	butResume = {
+		width = 400,
+		height = 75,
+		x = 0,
+		y = 0,
+		color = {r=255, g=51, b=102}
+	}
+	butResume.x = pauseScreen.x + pauseScreen.width / 2 - butResume.width / 2
+	butResume.y = pauseScreen.y + pauseScreen.height / 4 - butResume.height / 2
+	
+	butSound = {
+		width = 400,
+		height = 75,
+		x = 0,
+		y = 0,
+		color = {r=255, g=51, b=102}
+	}
+	butSound.x = pauseScreen.x + pauseScreen.width / 2 - butSound.width / 2
+	butSound.y = pauseScreen.y + pauseScreen.height / 2 - butSound.height / 2
+	
+	butQuit = {
+		width = 400,
+		height = 75,
+		x = 0,
+		y = 0,
+		color = {r=255, g=51, b=102}
+	}
+	butQuit.x = pauseScreen.x + pauseScreen.width / 2 - butQuit.width / 2
+	butQuit.y = pauseScreen.y + pauseScreen.height * .75 - butQuit.height / 2
+	
+	
 
 	-- traits of different animals
 	kitten = {
@@ -172,12 +222,19 @@ function love.update(dt)
 			end
 		end
 	end
-
+	
+	--When mouse is clicked, mouse square to mouse's location
 	if love.mouse.isDown(1) then
 		square.x = love.mouse.getX()
 		square.y = love.mouse.getY()
+		--[[
+		if love.mouse.getX() >= button.x and love.mouse.getX() <= (button.x + button.width) and
+			love.mouse.getY() >= button.y and love.mouse.getY() <= (button.y + button.height) then
+			pClick = not pClick
+		end
+		]]--
 	end
-
+	
 	if coll.collides(square, trampoline) then
 		square.color = square.colortouch
 	else square.color = square.colornottouch end
@@ -190,6 +247,22 @@ end
 
 function love.keypressed(key, _, rep)
 	if key == 'p' and not rep then
+		pause = not pause
+	end
+end
+
+function love.mousepressed(mouseX, mouseY, click)
+	--check to see if mouse has been clicked
+	if click == 1 then
+		pClick = not pClick
+	end
+end
+
+function love.mousereleased(mouseX, mouseY, click)
+	--when mouse releases from click on pause button, pause the game
+	if click == 1 and pClick and
+		mouseX >= button.x and mouseX <= (button.x + button.width) and
+		mouseY >= button.y and mouseY <= (button.y + button.height) then
 		pause = not pause
 	end
 end
@@ -207,10 +280,35 @@ function love.draw()
 				animals[i].x, animals[i].y, animals[i].width, animals[i].height)
 		end
 	else
+		--Draw Pause Screen
+		love.graphics.setColor(pauseScreen.color.r, pauseScreen.color.g, pauseScreen.color.b)
 		love.graphics.print('PAUSED', 50, 50)
+		love.graphics.rectangle("fill", pauseScreen.x, pauseScreen.y,
+								pauseScreen.width, pauseScreen.height)
+								
+		--Draw Resume Button
+		love.graphics.setColor(butResume.color.r, butResume.color.g,
+								butResume.color.b)
+		love.graphics.rectangle("fill", butResume.x, butResume.y,
+								butResume.width, butResume.height)
+		
+		--Draw Sound Button
+		love.graphics.setColor(butSound.color.r, butSound.color.g,
+								butSound.color.b)
+		love.graphics.rectangle("fill", butSound.x, butSound.y,
+								butSound.width, butSound.height)
+		
+		--Draw Quit Button
+		love.graphics.setColor(butQuit.color.r, butQuit.color.g,
+								butQuit.color.b)
+		love.graphics.rectangle("fill", butQuit.x, butQuit.y,
+								butQuit.width, butQuit.height)
 	end
 
 	--Draw trampoline
 	drawRect(trampoline)
 	drawRect(square)
+	
+	--Draw pause button
+	drawRect(button)
 end
