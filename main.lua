@@ -14,6 +14,8 @@ function love.conf(t)
 end
 
 function love.load()
+    spawnRate = 3
+
 	--boolean for pause screen
 	pause = false
 
@@ -98,87 +100,92 @@ function love.load()
 	butQuit.x = pauseScreen.x + pauseScreen.width / 2 - butQuit.width / 2		--update x pos
 	butQuit.y = pauseScreen.y + pauseScreen.height * .75 - butQuit.height / 2	--update y pos
 
-	-- traits of different animals
+    -- default values for each animal
+    animalDefaults = {
+        speed = 3,
+        bounce = 3,
+        width = 30,
+        height = 30,
+        color = {r=128,g=255,b=128}
+    }
+    animalDefaults.__index = animalDefaults
+
+	-- unique traits of different animals
 	kitten = {
-		speed = 3,
-		bounce = 3,
-		width = 30,
-		height = 30
-	}
-	kitten.__index = kitten
+        color = {r=232, g=175, b=57}
+    }
 
 	bunny = {
-		speed = 3,
-		bounce = 6,
-		width = 30,
-		height = 30
-	}
-	bunny.__index = bunny
+        bounce = 6,
+        color = {r=200, g=255, b=255}
+    }
 
 	chick = {
 		speed = 1,
 		bounce = 1,
 		width = 20,
-		height = 20
+		height = 20,
+        color = {r=255, g=255, b=100}
 	}
-	chick.__index = chick
 
 	spider = {
 		speed = 1,
 		bounce = 1,
 		width = 20,
-		height = 20
+		height = 20,
+        color = {r=128, g=128, b=128}
 	}
-	spider.__index = spider
 
 	snake = {
-		speed = 3,
-		bounce = 3,
-		width = 30,
-		height = 30
+        color = {r=90, g=132, b=4}
 	}
-	snake.__index = snake
 
 	elephant = {
-		speed = 3,
 		bounce = 0,
 		width = 100,
-		height = 75
+		height = 75,
+        color = {r=160, g=160, b=160}
 	}
-	elephant.__index = elephant
 
 	-- table holding metatables for animal "objects"
 	-- 1 = chick, 2 = kitten, 3 = bunny, 4 = spider, 5 = snake, 6 = elephant
 	animal_types = {
 		chick, kitten, bunny, spider, snake, elephant
 	}
+
+    -- give each animal type the metatable of the defaults
+    for i=1, #animal_types do
+        -- JMA, I know this line is needed, but what does it do?
+        animal_types[i].__index = animal_types[i] 
+        setmetatable(animal_types[i], animalDefaults)
+    end
+
 	-- table that contain animal data
 	animals = {}
 	number_of_animals = 0
 	love.spawn()
-
 end
 
 function love.spawn()
 
 	number_of_animals = number_of_animals + 1
 	animals[number_of_animals] = {}
-    animals[number_of_animals].x = math.random(1, love.graphics.getWidth() - (trampoline.width/3))
-	animals[number_of_animals].y = 0
-	animals[number_of_animals].animal_id = math.random(1,6)
+    animals[number_of_animals].animal_id = math.random(1,6)
 
-	-- Change their attributes depending on what animal they are
-	setmetatable(animals[number_of_animals], animal_types[animals[number_of_animals].animal_id])
+    -- Change their attributes depending on what animal they are
+    setmetatable(animals[number_of_animals], animal_types[animals[number_of_animals].animal_id])
+
+    animals[number_of_animals].x = math.random(1, love.graphics.getWidth() - animals[number_of_animals].width)
+	animals[number_of_animals].y = 0
 
 	timer = 0
-
 end
 
 
 function love.update(dt)
 	if pause == false then	--checks to see if the game has been paused
 		timer = timer + dt
-		if timer > math.random(3, 20) then
+		if timer > math.random(spawnRate, spawnRate * 4) then
 			love.spawn()
 		end
 
@@ -266,6 +273,7 @@ end
 function love.draw()
 	if pause == false then	--when game is paused, the animals are invisible
 		for i = 1, number_of_animals do
+            love.graphics.setColor(animals[i].color.r, animals[i].color.g, animals[i].color.b)
 			love.graphics.rectangle("fill",
 				animals[i].x, animals[i].y, animals[i].width, animals[i].height)
 		end
