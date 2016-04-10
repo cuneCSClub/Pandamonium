@@ -105,6 +105,7 @@ function love.load()
 		width = 30,
 		height = 30
 	}
+	kitten.__index = kitten
 
 	bunny = {
 		speed = 3,
@@ -112,6 +113,7 @@ function love.load()
 		width = 30,
 		height = 30
 	}
+	bunny.__index = bunny
 
 	chick = {
 		speed = 1,
@@ -119,6 +121,7 @@ function love.load()
 		width = 20,
 		height = 20
 	}
+	chick.__index = chick
 
 	spider = {
 		speed = 1,
@@ -126,6 +129,7 @@ function love.load()
 		width = 20,
 		height = 20
 	}
+	spider.__index = spider
 
 	snake = {
 		speed = 3,
@@ -133,6 +137,7 @@ function love.load()
 		width = 30,
 		height = 30
 	}
+	snake.__index = snake
 
 	elephant = {
 		speed = 3,
@@ -140,6 +145,7 @@ function love.load()
 		width = 100,
 		height = 75
 	}
+	elephant.__index = elephant
 
 	-- table that contain animal data
 	animals = {}
@@ -166,35 +172,17 @@ function love.spawn()
 
 	-- Change their attributes depending on what animal they are
 	if animals[number_of_animals].animal_id == 1 then -- chick
-	    animals[number_of_animals].speed = chick.speed
-			animals[number_of_animals].bounce = chick.bounce
-			animals[number_of_animals].width = chick.width
-			animals[number_of_animals].height = chick.height
+	    setmetatable(animals[number_of_animals], chick)
 	elseif animals[number_of_animals].animal_id == 2 then -- kitten
-			animals[number_of_animals].speed = kitten.speed
-			animals[number_of_animals].bounce = kitten.bounce
-			animals[number_of_animals].width = kitten.width
-			animals[number_of_animals].height = kitten.height
+		setmetatable(animals[number_of_animals], kitten)
 	elseif animals[number_of_animals].animal_id == 3 then -- bunny
-	    animals[number_of_animals].speed = bunny.speed
-			animals[number_of_animals].bounce = bunny.bounce
-			animals[number_of_animals].width = bunny.width
-			animals[number_of_animals].height = bunny.height
+	    setmetatable(animals[number_of_animals], bunny)
 	elseif animals[number_of_animals].animal_id == 4 then -- spider
-	    animals[number_of_animals].speed = spider.speed
-			animals[number_of_animals].bounce = spider.bounce
-			animals[number_of_animals].width = spider.width
-			animals[number_of_animals].height = spider.height
+	    setmetatable(animals[number_of_animals], spider)
 	elseif animals[number_of_animals].animal_id == 5 then -- snake
-	    animals[number_of_animals].speed = snake.speed
-			animals[number_of_animals].bounce = snake.bounce
-			animals[number_of_animals].width = snake.width
-			animals[number_of_animals].height = snake.height
+	    setmetatable(animals[number_of_animals], snake)
 	else -- ELEPHANT
-	    animals[number_of_animals].speed = elephant.speed
-			animals[number_of_animals].bounce = elephant.bounce
-			animals[number_of_animals].width = elephant.width
-			animals[number_of_animals].height = elephant.height
+	    setmetatable(animals[number_of_animals], elephant)
 	end
 
 	timer = 0
