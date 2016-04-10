@@ -147,6 +147,11 @@ function love.load()
 	}
 	elephant.__index = elephant
 
+	-- table holding metatables for animal "objects"
+	-- 1 = chick, 2 = kitten, 3 = bunny, 4 = spider, 5 = snake, 6 = elephant
+	animal_types = {
+		chick, kitten, bunny, spider, snake, elephant
+	}
 	-- table that contain animal data
 	animals = {}
 	number_of_animals = 0
@@ -160,30 +165,10 @@ function love.spawn()
 	animals[number_of_animals] = {}
     animals[number_of_animals].x = math.random(1, love.graphics.getWidth() - (trampoline.width/3))
 	animals[number_of_animals].y = 0
-
 	animals[number_of_animals].animal_id = math.random(1,6)
 
-	-- 1 = chick
-	-- 2 = kitten
-	-- 3 = bunny
-	-- 4 = spider
-	-- 5 = snake
-	-- 6 = elephant
-
 	-- Change their attributes depending on what animal they are
-	if animals[number_of_animals].animal_id == 1 then -- chick
-	    setmetatable(animals[number_of_animals], chick)
-	elseif animals[number_of_animals].animal_id == 2 then -- kitten
-		setmetatable(animals[number_of_animals], kitten)
-	elseif animals[number_of_animals].animal_id == 3 then -- bunny
-	    setmetatable(animals[number_of_animals], bunny)
-	elseif animals[number_of_animals].animal_id == 4 then -- spider
-	    setmetatable(animals[number_of_animals], spider)
-	elseif animals[number_of_animals].animal_id == 5 then -- snake
-	    setmetatable(animals[number_of_animals], snake)
-	else -- ELEPHANT
-	    setmetatable(animals[number_of_animals], elephant)
-	end
+	setmetatable(animals[number_of_animals], animal_types[animals[number_of_animals].animal_id])
 
 	timer = 0
 
