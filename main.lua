@@ -1,20 +1,9 @@
 coll = require 'collisions'
 require 'animals'
 
---Screen Configuration
-function love.conf(t)
-	t.title = "Pandamonium"	--Title in the window
-	t.version = "0.10.0"	--LOVE version this game was made for
-
-	t.window.width = 480	--screen width
-	t.window.height = 700	--screen height
-	t.window.vsync = true	--Destroy the evil screen tearing!
-
-	-- For Windows debugging
-	t.console = true
-end
-
 function love.load()
+
+	background = love.graphics.newImage('assets/building.png')   -- Set background image
 
 	--boolean for pause screen
 	pause = false
@@ -107,14 +96,24 @@ end
 
 function love.update(dt)
 
+    for i = 1, number_of_animals do
+		animals[i].delta_time = animals[i].delta_time + dt 	                      -- Keeps track of how long each animal has been in the air
+		animals[i].rotation = animals[i].rotation + animals[i].rotationSpeed      -- Keeps track of how much each animal should be rotated when falling
+	end
+
 	if pause == false then	--checks to see if the game has been paused
+	
 		timer = timer + dt
+		
+		-- Spawn an animal every 2-8 seconds
 		if timer > math.random(spawnRate, spawnRate * 4) then
 			love.spawn()
 		end
 
+		-- Exert force of gravity on each animal (falling at different rates, unrealistic but gives variety)
 		for i = 1, number_of_animals do
-			animals[i].y = animals[i].y + animals[i].speed
+			animals[i].y = (animals[i].fall_rate * (animals[i].delta_time ^ 2)
+                 			+ (30 * animals[i].delta_time)) -- similar to an equation y = -at^2 + bt
 		end
 
 		--Set controls for trampoline
@@ -195,11 +194,18 @@ local function drawRect(obj)
 end
 
 function love.draw()
+
+	-- Default bacground for now 
+	love.graphics.setColor(255, 255, 255, 150) -- Transparency of 150 slighty transparent
+	love.graphics.draw(background, 0, 0)
+
 	if pause == false then	--when game is paused, the animals are invisible
 		for i = 1, number_of_animals do
-            love.graphics.setColor(animals[i].color.r, animals[i].color.g, animals[i].color.b)
-			love.graphics.rectangle("fill",
-				animals[i].x, animals[i].y, animals[i].width, animals[i].height)
+			love.graphics.setColor(255,255,255, 255) -- Get rid of the transparency
+			
+			-- Draw the animal pictures in the (x,y) location of each animal
+			love.graphics.draw(animals[i].image, animals[i].x + animals[i].width / 2, animals[i].y + animals[i].height / 2, animals[i].rotation,
+                       		   1, 1, animals[i].width/2, animals[i].height/2)
 		end
 		--Draw Pause Button
 		drawRect(butPause)
