@@ -2,6 +2,7 @@ coll = require 'collisions'
 require 'animals'
 
 function love.load()
+	math.randomseed(os.time())
 
 	background = love.graphics.newImage('assets/building.png')   -- Set background image
 
@@ -96,14 +97,14 @@ end
 
 function love.update(dt)
 
-    for i = 1, number_of_animals do
-		animals[i].delta_time = animals[i].delta_time + dt 	                      -- Keeps track of how long each animal has been in the air
-		animals[i].rotation = animals[i].rotation + animals[i].rotationSpeed      -- Keeps track of how much each animal should be rotated when falling
-	end
-
 	if pause == false then	--checks to see if the game has been paused
-	
 		timer = timer + dt
+
+		for i = 1, number_of_animals do
+			animals[i].delta_time = animals[i].delta_time + dt 	                      -- Keeps track of how long each animal has been in the air
+			animals[i].rotation = animals[i].rotation + animals[i].rotationSpeed      -- Keeps track of how much each animal should be rotated when falling
+		end
+		
 		
 		-- Spawn an animal every 2-8 seconds
 		if timer > math.random(spawnRate, spawnRate * 4) then
@@ -228,5 +229,5 @@ function love.draw()
 
 	--Draw trampoline
 	drawRect(trampoline)
-	drawRect(square)
+	--drawRect(square)
 end

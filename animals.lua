@@ -4,10 +4,12 @@ function load_animals()
 
 	-- default values for each animal
 		animalDefaults = {
-			speed = 3,
+			fall_rate = 50,
 			bounce = 3,
 			width = 30,
 			height = 30,
+			rotation = 0,
+			delta_time = 0,
 			color = {r=128,g=255,b=128}
 		}
 		animalDefaults.__index = animalDefaults
@@ -15,9 +17,7 @@ function load_animals()
 		-- unique traits of different animals
 		kitten = {
 			color = {r=232, g=175, b=57},
-			delta_time = 0,
 			fall_rate = 50,
-			rotation = 0,
 			rotationSpeed = 0.13,
 			image = love.graphics.newImage('assets/kitten.png')
 		}
@@ -25,44 +25,34 @@ function load_animals()
 		bunny = {
 			bounce = 6,
 			color = {r=200, g=255, b=255},
-			delta_time = 0,
 			fall_rate = 60,
-			rotation = 0,
 			rotationSpeed = 0.1,
 			image = love.graphics.newImage('assets/bunny.png')
 		}
 
 		chick = {
-			speed = 1,
 			bounce = 1,
 			width = 20,
 			height = 20,
 			color = {r=255, g=255, b=100},
-			delta_time = 0,
 			fall_rate = 25,
-			rotation = 0,
 			rotationSpeed = 0.2,
 			image = love.graphics.newImage('assets/chick.png')
 		}
 
 		spider = {
-			speed = 1,
 			bounce = 1,
 			width = 20,
 			height = 20,
 			color = {r=128, g=128, b=128},
-			delta_time = 0,
 			fall_rate = 80,
-			rotation = 0,
 			rotationSpeed = 0.05,
 			image = love.graphics.newImage('assets/poop20.png')
 		}
 
 		snake = {
 			color = {r=90, g=132, b=4},
-			delta_time = 0,
 			fall_rate = 90,
-			rotation = 0,
 			rotationSpeed = 0.01,
 			image = love.graphics.newImage('assets/poop30.png')
 		}
@@ -72,9 +62,7 @@ function load_animals()
 			width = 100,
 			height = 75,
 			color = {r=160, g=160, b=160},
-			delta_time = 0,
 			fall_rate = 100,
-			rotation = 0,
 			rotationSpeed = 0.005,
 			image = love.graphics.newImage('assets/elephant.png')
 		}
